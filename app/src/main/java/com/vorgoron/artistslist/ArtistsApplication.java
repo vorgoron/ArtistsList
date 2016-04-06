@@ -5,6 +5,7 @@ import android.app.Application;
 import com.vorgoron.artistslist.di.component.ApplicationComponent;
 import com.vorgoron.artistslist.di.component.DaggerApplicationComponent;
 import com.vorgoron.artistslist.di.module.ApplicationModule;
+import com.vorgoron.artistslist.di.module.NetModule;
 
 import lombok.Getter;
 
@@ -23,6 +24,7 @@ public class ArtistsApplication extends Application {
     private void initComponent() {
         applicationComponent = DaggerApplicationComponent.builder()
                 .applicationModule(new ApplicationModule(this))
+                .netModule(new NetModule(Constants.ENDPOINT_ADDRESS))
                 .build();
     }
 }
