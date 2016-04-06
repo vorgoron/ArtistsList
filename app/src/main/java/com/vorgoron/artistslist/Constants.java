@@ -1,5 +1,5 @@
 package com.vorgoron.artistslist;
 
 public class Constants {
-    public static final String ENDPOINT_ADDRESS = "download.cdn.yandex.net";
+    public static final String ENDPOINT_ADDRESS = "http://download.cdn.yandex.net";
 }

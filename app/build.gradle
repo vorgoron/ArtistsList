@@ -42,6 +42,8 @@ dependencies {
     compile 'io.reactivex:rxjava:1.1.0'
     compile 'com.squareup.retrofit2:retrofit:2.0.1'
     compile 'com.squareup.retrofit2:converter-gson:2.0.1'
+    compile 'com.squareup.retrofit2:adapter-rxjava:2.0.1'
+    compile 'com.squareup.okhttp3:logging-interceptor:3.2.0'
     apt 'org.projectlombok:lombok:1.16.6'
     provided 'org.projectlombok:lombok:1.16.6'
     compile 'info.android15.nucleus:nucleus-support-v4:2.0.5'
