@@ -23,4 +23,6 @@ public interface ApplicationComponent {
     OkHttpClient provideOkHttpClient();
     Retrofit providesRetrofit();
     ArtistApi provideArtistApi();
+
+    void inject(MainPresenter mainPresenter);
 }
