@@ -51,4 +51,9 @@ public class BaseActivity<P extends BasePresenter> extends NucleusAppCompatActiv
         progressDialog.dismiss();
     }
 
+    public void onError(Throwable throwable) {
+        throwable.printStackTrace();
+        hideProgress();
+        showToast(throwable.getLocalizedMessage());
+    }
 }
