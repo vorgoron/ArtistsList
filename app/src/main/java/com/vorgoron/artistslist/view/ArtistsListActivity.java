@@ -7,15 +7,15 @@ import android.support.v7.widget.RecyclerView;
 import com.vorgoron.artistslist.R;
 import com.vorgoron.artistslist.adapter.ArtistAdapter;
 import com.vorgoron.artistslist.model.api.response.Artist;
-import com.vorgoron.artistslist.presenter.MainPresenter;
+import com.vorgoron.artistslist.presenter.ArtistsListPresenter;
 
 import java.util.List;
 
 import butterknife.Bind;
 import nucleus.factory.RequiresPresenter;
 
-@RequiresPresenter(MainPresenter.class)
-public class MainActivity extends BaseActivity<MainPresenter> {
+@RequiresPresenter(ArtistsListPresenter.class)
+public class ArtistsListActivity extends BaseActivity<ArtistsListPresenter> {
 
     @Bind(R.id.list)
     RecyclerView list;
@@ -23,9 +23,9 @@ public class MainActivity extends BaseActivity<MainPresenter> {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_artists_list);
         getPresenter().injectPresenter(this);
-        getPresenter().start(MainPresenter.GET_ARTISTS);
+        getPresenter().start(ArtistsListPresenter.GET_ARTISTS);
         showProgress();
     }
 

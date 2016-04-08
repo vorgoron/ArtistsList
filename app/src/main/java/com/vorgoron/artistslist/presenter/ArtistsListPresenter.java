@@ -4,12 +4,12 @@ import android.os.Bundle;
 
 import com.vorgoron.artistslist.ArtistsApplication;
 import com.vorgoron.artistslist.model.api.ArtistApi;
+import com.vorgoron.artistslist.view.ArtistsListActivity;
 import com.vorgoron.artistslist.view.BaseActivity;
-import com.vorgoron.artistslist.view.MainActivity;
 
 import javax.inject.Inject;
 
-public class MainPresenter extends BasePresenter<MainActivity> {
+public class ArtistsListPresenter extends BasePresenter<ArtistsListActivity> {
 
     public static final int GET_ARTISTS = 1;
 
@@ -23,12 +23,12 @@ public class MainPresenter extends BasePresenter<MainActivity> {
         restartableFirst(GET_ARTISTS,
                 () -> artistApi.getArtists()
                         .compose(applySchedulers()),
-                MainActivity::setArtists,
+                ArtistsListActivity::setArtists,
                 BaseActivity::onError);
     }
 
     @Override
-    public void injectPresenter(MainActivity mainActivity) {
-        ((ArtistsApplication) mainActivity.getApplication()).getApplicationComponent().inject(this);
+    public void injectPresenter(ArtistsListActivity artistsListActivity) {
+        ((ArtistsApplication) artistsListActivity.getApplication()).getApplicationComponent().inject(this);
     }
 }

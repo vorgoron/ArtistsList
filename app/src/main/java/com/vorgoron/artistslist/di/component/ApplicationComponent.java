@@ -6,7 +6,7 @@ import com.google.gson.Gson;
 import com.vorgoron.artistslist.di.module.ApplicationModule;
 import com.vorgoron.artistslist.di.module.NetModule;
 import com.vorgoron.artistslist.model.api.ArtistApi;
-import com.vorgoron.artistslist.presenter.MainPresenter;
+import com.vorgoron.artistslist.presenter.ArtistsListPresenter;
 
 import javax.inject.Singleton;
 
@@ -24,5 +24,5 @@ public interface ApplicationComponent {
     Retrofit providesRetrofit();
     ArtistApi provideArtistApi();
 
-    void inject(MainPresenter mainPresenter);
+    void inject(ArtistsListPresenter artistsListPresenter);
 }
