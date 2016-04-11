@@ -2,7 +2,6 @@ package com.vorgoron.artistslist.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
-import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -38,7 +37,7 @@ public class ItemViewHolder extends RecyclerView.ViewHolder {
                 .into(cover);
 
         title.setText(item.getName());
-        genre.setText(TextUtils.join(DELIMITER, item.getGenres()));
+        genre.setText(item.getGenres());
         String albumsString = context.getResources().getQuantityString(R.plurals.albums,
                 item.getAlbums(), item.getAlbums());
         String tracksString = context.getResources().getQuantityString(R.plurals.tracks,

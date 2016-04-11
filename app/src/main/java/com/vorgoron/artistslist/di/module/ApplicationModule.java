@@ -3,6 +3,7 @@ package com.vorgoron.artistslist.di.module;
 import android.app.Application;
 
 import com.vorgoron.artistslist.ArtistsApplication;
+import com.vorgoron.artistslist.model.Cache;
 
 import javax.inject.Singleton;
 
@@ -22,6 +23,12 @@ public class ApplicationModule {
     @Singleton
     Application provideApplication() {
         return artistsApplication;
+    }
+
+    @Provides
+    @Singleton
+    Cache provideCache() {
+        return new Cache();
     }
     
 }
