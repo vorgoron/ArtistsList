@@ -2,6 +2,8 @@
     <string name="app_name">Artists List</string>
 
     <string name="progress_dialog_message">Загрузка…</string>
+    <string name="error_message.connection_error">Ошибка подключения</string>
+    <string name="retry_to_connect">Повторить попытку</string>
 
     <plurals name="albums">
         <item quantity="one">%s альбом</item>

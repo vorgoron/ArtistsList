@@ -5,7 +5,6 @@ import android.os.Bundle;
 import com.vorgoron.artistslist.ArtistsApplication;
 import com.vorgoron.artistslist.model.api.ArtistApi;
 import com.vorgoron.artistslist.view.ArtistsListActivity;
-import com.vorgoron.artistslist.view.BaseActivity;
 
 import javax.inject.Inject;
 
@@ -23,12 +22,24 @@ public class ArtistsListPresenter extends BasePresenter<ArtistsListActivity> {
         restartableFirst(GET_ARTISTS,
                 () -> artistApi.getArtists()
                         .compose(applySchedulers()),
-                ArtistsListActivity::setArtists,
-                BaseActivity::onError);
+                (artistsListActivity, artists) -> {
+                    artistsListActivity.hideProgress();
+                    artistsListActivity.setArtists(artists);
+                },
+                (artistsListActivity, throwable) -> {
+                    artistsListActivity.showReattemptGroup(true);
+                    artistsListActivity.onError(throwable);
+                });
     }
 
     @Override
     public void injectPresenter(ArtistsListActivity artistsListActivity) {
         ((ArtistsApplication) artistsListActivity.getApplication()).getApplicationComponent().inject(this);
+    }
+
+    public void loadArtists(ArtistsListActivity artistsListActivity) {
+        start(ArtistsListPresenter.GET_ARTISTS);
+        artistsListActivity.showProgress();
+        artistsListActivity.showReattemptGroup(false);
     }
 }
