@@ -16,12 +16,16 @@ import butterknife.ButterKnife;
 
 public class ItemViewHolder extends RecyclerView.ViewHolder {
 
+    public static final String DELIMITER = ", ";
+
     @Bind(R.id.cover)
     ImageView cover;
     @Bind(R.id.title)
     TextView title;
     @Bind(R.id.genre)
     TextView genre;
+    @Bind(R.id.summary)
+    TextView summary;
 
     public ItemViewHolder(View itemView) {
         super(itemView);
@@ -34,6 +38,11 @@ public class ItemViewHolder extends RecyclerView.ViewHolder {
                 .into(cover);
 
         title.setText(item.getName());
-        genre.setText(TextUtils.join(", ", item.getGenres()));
+        genre.setText(TextUtils.join(DELIMITER, item.getGenres()));
+        String albumsString = context.getResources().getQuantityString(R.plurals.albums,
+                item.getAlbums(), item.getAlbums());
+        String tracksString = context.getResources().getQuantityString(R.plurals.tracks,
+                item.getTracks(), item.getTracks());
+        summary.setText(albumsString + DELIMITER + tracksString);
     }
 }
