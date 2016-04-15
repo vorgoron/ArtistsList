@@ -18,4 +18,8 @@
         <item quantity="few">%s песни</item>
         <item quantity="many">%s песен</item>
     </plurals>
+
+    <string name="artists_detail_title">Детальная информация</string>
+    <string name="artists_detail_biography">Биография</string>
+
 </resources>

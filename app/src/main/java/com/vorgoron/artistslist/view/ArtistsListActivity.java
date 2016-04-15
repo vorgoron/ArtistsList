@@ -1,8 +1,10 @@
 package com.vorgoron.artistslist.view;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 
 import com.vorgoron.artistslist.R;
@@ -19,6 +21,8 @@ import nucleus.factory.RequiresPresenter;
 
 @RequiresPresenter(ArtistsListPresenter.class)
 public class ArtistsListActivity extends BaseActivity<ArtistsListPresenter> {
+
+    private static final String TAG = "ArtistsListActivity";
 
     @Bind(R.id.reattempt_group)
     View reattemptGroup;
@@ -42,7 +46,12 @@ public class ArtistsListActivity extends BaseActivity<ArtistsListPresenter> {
         ArtistAdapter artistAdapter = new ArtistAdapter(this, artists);
         list.setLayoutManager(new LinearLayoutManager(this));
         list.addItemDecoration(new SimpleDividerItemDecoration(this));
+        artistAdapter.setOnItemClickListener(this::onClickArtist);
         list.setAdapter(artistAdapter);
+    }
+
+    private void onClickArtist(Artist artist) {
+        ArtistsDetailActivity.launch(this, artist.getArtistId());
     }
 
     public void showReattemptGroup(boolean show) {

@@ -31,7 +31,8 @@ public class ItemViewHolder extends RecyclerView.ViewHolder {
         ButterKnife.bind(this, itemView);
     }
 
-    public void bindView(Context context, Artist item) {
+    public void bindView(Context context, Artist item,
+                         ArtistAdapter.OnItemClickListener itemClickListener) {
         Glide.with(context)
                 .load(item.getCover().getSmall())
                 .into(cover);
@@ -43,5 +44,6 @@ public class ItemViewHolder extends RecyclerView.ViewHolder {
         String tracksString = context.getResources().getQuantityString(R.plurals.tracks,
                 item.getTracks(), item.getTracks());
         summary.setText(albumsString + DELIMITER + tracksString);
+        itemView.setOnClickListener(v -> itemClickListener.onItemClick(item));
     }
 }

@@ -51,4 +51,17 @@ public class Cache {
                     subscriber.onCompleted();
                 });
     }
+
+    public Observable<Artist> getArtist(int artistId) {
+        final Artist artist = new Select()
+                .from(Artist.class)
+                .eq(Artist.ARTIST_ID, artistId)
+                .executeSingle();
+
+        return Observable
+                .create((Observable.OnSubscribe<Artist>) subscriber -> {
+                    subscriber.onNext(artist);
+                    subscriber.onCompleted();
+                });
+    }
 }

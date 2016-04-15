@@ -13,8 +13,13 @@ import java.util.List;
 
 public class ArtistAdapter extends RecyclerView.Adapter<ItemViewHolder> {
 
+    public interface OnItemClickListener {
+        void onItemClick(Artist artist);
+    }
+
     private Context context;
     private List<Artist> artistList;
+    private OnItemClickListener itemClickListener;
 
     public ArtistAdapter(Context context, List<Artist> artistList) {
         this.context = context;
@@ -23,17 +28,22 @@ public class ArtistAdapter extends RecyclerView.Adapter<ItemViewHolder> {
 
     @Override
     public ItemViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_view_holder, null);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_view_holder,
+                parent, false);
         return new ItemViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(ItemViewHolder viewHolder, int position) {
-        viewHolder.bindView(context, artistList.get(position));
+        viewHolder.bindView(context, artistList.get(position), itemClickListener);
     }
 
     @Override
     public int getItemCount() {
         return artistList == null ? 0 : artistList.size();
+    }
+
+    public void setOnItemClickListener(OnItemClickListener itemClickListener) {
+        this.itemClickListener = itemClickListener;
     }
 }
