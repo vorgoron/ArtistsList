@@ -22,6 +22,7 @@ public class ArtistsListPresenter extends BasePresenter<ArtistsListActivity> {
     @Override
     protected void onCreate(Bundle savedState) {
         super.onCreate(savedState);
+        ArtistsApplication.getApplicationComponent().inject(this);
 
         restartableFirst(LOAD_ARTISTS,
                 () -> artistApi.getArtists()
@@ -53,11 +54,6 @@ public class ArtistsListPresenter extends BasePresenter<ArtistsListActivity> {
                     artistsListActivity.showReattemptGroup(true);
                     artistsListActivity.onError(throwable);
                 });
-    }
-
-    @Override
-    public void injectPresenter(ArtistsListActivity artistsListActivity) {
-        ((ArtistsApplication) artistsListActivity.getApplication()).getApplicationComponent().inject(this);
     }
 
     public void loadArtists(ArtistsListActivity artistsListActivity) {

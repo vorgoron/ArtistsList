@@ -13,7 +13,7 @@ import lombok.Getter;
 public class ArtistsApplication extends Application {
 
     @Getter
-    private ApplicationComponent applicationComponent;
+    private static ApplicationComponent applicationComponent;
 
     @Override
     public void onCreate() {

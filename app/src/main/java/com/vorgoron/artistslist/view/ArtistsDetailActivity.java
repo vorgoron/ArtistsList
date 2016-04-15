@@ -48,7 +48,6 @@ public class ArtistsDetailActivity extends BaseActivity<ArtistsDetailPresenter> 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getPresenter().injectPresenter(this);
         setContentView(R.layout.activity_artists_detail);
         setSupportActionBar(toolbar);
 

@@ -10,8 +10,6 @@ import com.vorgoron.artistslist.view.BaseActivity;
 
 import javax.inject.Inject;
 
-import lombok.Setter;
-
 public class ArtistsDetailPresenter extends BasePresenter<ArtistsDetailActivity> {
 
     public static final int LOAD_ARTISTS = 1;
@@ -24,6 +22,7 @@ public class ArtistsDetailPresenter extends BasePresenter<ArtistsDetailActivity>
     @Override
     protected void onCreate(Bundle savedState) {
         super.onCreate(savedState);
+        ArtistsApplication.getApplicationComponent().inject(this);
 
         restartableFirst(LOAD_ARTISTS,
                 () -> cache
@@ -41,11 +40,6 @@ public class ArtistsDetailPresenter extends BasePresenter<ArtistsDetailActivity>
                     activity.setDescription(artist.getDescription());
                 },
                 BaseActivity::onError);
-    }
-
-    @Override
-    public void injectPresenter(ArtistsDetailActivity activity) {
-        ((ArtistsApplication) activity.getApplication()).getApplicationComponent().inject(this);
     }
 
     public void loadArtist(int artistId) {

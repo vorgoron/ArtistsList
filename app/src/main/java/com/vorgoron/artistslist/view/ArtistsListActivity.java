@@ -22,8 +22,6 @@ import nucleus.factory.RequiresPresenter;
 @RequiresPresenter(ArtistsListPresenter.class)
 public class ArtistsListActivity extends BaseActivity<ArtistsListPresenter> {
 
-    private static final String TAG = "ArtistsListActivity";
-
     @Bind(R.id.reattempt_group)
     View reattemptGroup;
     @Bind(R.id.list)
@@ -33,7 +31,6 @@ public class ArtistsListActivity extends BaseActivity<ArtistsListPresenter> {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_artists_list);
-        getPresenter().injectPresenter(this);
         getPresenter().loadArtists(this);
     }
 
