@@ -18,6 +18,10 @@
         <meta-data
             android:name="AA_DB_VERSION"
             android:value="1" />
+        <meta-data
+            android:name="AA_MODELS"
+            android:value="com.vorgoron.artistslist.model.api.response.Artist,
+                            com.vorgoron.artistslist.model.api.response.Cover" />
 
         <activity android:name=".view.ArtistsListActivity">
             <intent-filter>
