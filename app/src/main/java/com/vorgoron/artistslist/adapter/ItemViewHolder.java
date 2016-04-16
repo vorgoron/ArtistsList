@@ -18,11 +18,6 @@ import butterknife.ButterKnife;
  */
 public class ItemViewHolder extends RecyclerView.ViewHolder {
 
-    /**
-     * разделитель между количеством альбомов и песен
-     */
-    public static final String DELIMITER = ", ";
-
     @Bind(R.id.cover)
     ImageView cover;
     @Bind(R.id.title)
@@ -61,7 +56,7 @@ public class ItemViewHolder extends RecyclerView.ViewHolder {
                 artist.getAlbums(), artist.getAlbums());
         String tracksString = context.getResources().getQuantityString(R.plurals.tracks,
                 artist.getTracks(), artist.getTracks());
-        summary.setText(albumsString + DELIMITER + tracksString);
+        summary.setText(context.getString(R.string.artists_list_summary, albumsString, tracksString));
         itemView.setOnClickListener(v -> itemClickListener.onItemClick(artist));
     }
 }

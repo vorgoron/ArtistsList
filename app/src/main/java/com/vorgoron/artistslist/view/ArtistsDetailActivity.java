@@ -1,14 +1,12 @@
 package com.vorgoron.artistslist.view;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentActivity;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -19,9 +17,13 @@ import com.vorgoron.artistslist.presenter.ArtistsDetailPresenter;
 import butterknife.Bind;
 import nucleus.factory.RequiresPresenter;
 
+/**
+ * Активити, отображающая детальную информацию об исполнителе
+ */
 @RequiresPresenter(ArtistsDetailPresenter.class)
 public class ArtistsDetailActivity extends BaseActivity<ArtistsDetailPresenter> {
 
+    // ключ для получения id исполнителя
     private static final String EXTRA_ARTIST_ID = "extra_artist_id";
 
     @Bind(R.id.toolbar_layout)
@@ -39,6 +41,12 @@ public class ArtistsDetailActivity extends BaseActivity<ArtistsDetailPresenter> 
     @Bind(R.id.description)
     TextView description;
 
+    /**
+     * Запуск активити из другого активити
+     *
+     * @param activity активити - родитель
+     * @param artistId id исполнителя, детальную информацию которого надо отобразить
+     */
     public static void launch(FragmentActivity activity, int artistId) {
         Intent intent = new Intent(activity, ArtistsDetailActivity.class);
         intent.putExtra(EXTRA_ARTIST_ID, artistId);
@@ -51,22 +59,30 @@ public class ArtistsDetailActivity extends BaseActivity<ArtistsDetailPresenter> 
         setContentView(R.layout.activity_artists_detail);
         setSupportActionBar(toolbar);
 
+        // получение id исполнителя и запуск загрузки информации об исполнителе
         int artistId = getIntent().getIntExtra(EXTRA_ARTIST_ID, 0);
         getPresenter().loadArtist(artistId);
 
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
+        fab.setOnClickListener(view -> {
+            String link = getPresenter().getLink();
+            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(link)));
         });
     }
 
+    /**
+     * Установка имени исполнителя
+     *
+     * @param name имя
+     */
     public void setArtistName(String name) {
         toolbarLayout.setTitle(name);
     }
 
+    /**
+     * Установка изображения обложки
+     *
+     * @param imageUrl url изображения
+     */
     public void setImage(String imageUrl) {
         Glide.with(this)
                 .load(imageUrl)
@@ -74,15 +90,39 @@ public class ArtistsDetailActivity extends BaseActivity<ArtistsDetailPresenter> 
                 .into(bigCover);
     }
 
+    /**
+     * Установка жанра
+     *
+     * @param text текст с жанрами
+     */
     public void setGenre(String text) {
         genre.setText(text);
     }
 
-    public void setSumary(String text) {
+    /**
+     * Установка информации о количестве альбомов, песен
+     *
+     * @param text текст
+     */
+    public void setSummary(String text) {
         summary.setText(text);
     }
 
+    /**
+     * Установка описания об исполнителе
+     *
+     * @param description описание
+     */
     public void setDescription(String description) {
         this.description.setText(description);
+    }
+
+    /**
+     * Установка видимости кнопки перехода к сайту исполнителя.
+     *
+     * @param visibility видимость
+     */
+    public void setFabVisibility(int visibility) {
+        fab.setVisibility(visibility);
     }
 }

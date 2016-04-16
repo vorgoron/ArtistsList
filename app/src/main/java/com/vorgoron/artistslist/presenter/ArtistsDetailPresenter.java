@@ -1,6 +1,7 @@
 package com.vorgoron.artistslist.presenter;
 
 import android.os.Bundle;
+import android.view.View;
 
 import com.vorgoron.artistslist.ArtistsApplication;
 import com.vorgoron.artistslist.R;
@@ -44,9 +45,10 @@ public class ArtistsDetailPresenter extends BasePresenter<ArtistsDetailActivity>
                             artist.getAlbums(), artist.getAlbums());
                     String tracksString = activity.getResources().getQuantityString(R.plurals.tracks,
                             artist.getTracks(), artist.getTracks());
-                    activity.setSumary(albumsString + " • " + tracksString);
+                    activity.setSummary(activity.getString(R.string.artists_detail_summary, albumsString, tracksString));
                     activity.setDescription(artist.getDescription());
                     link = artist.getLink();
+                    activity.setFabVisibility(link != null ? View.VISIBLE : View.GONE);
                 },
                 BaseActivity::onError);
     }
