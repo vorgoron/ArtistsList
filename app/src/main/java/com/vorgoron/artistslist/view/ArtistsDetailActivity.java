@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.FragmentActivity;
+import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -58,6 +59,10 @@ public class ArtistsDetailActivity extends BaseActivity<ArtistsDetailPresenter> 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_artists_detail);
         setSupportActionBar(toolbar);
+        ActionBar supportActionBar = getSupportActionBar();
+        if (supportActionBar != null) {
+            supportActionBar.setDisplayHomeAsUpEnabled(true);
+        }
 
         // получение id исполнителя и запуск загрузки информации об исполнителе
         int artistId = getIntent().getIntExtra(EXTRA_ARTIST_ID, 0);

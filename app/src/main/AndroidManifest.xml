@@ -33,6 +33,7 @@
         <activity
             android:name=".view.ArtistsDetailActivity"
             android:label="@string/artists_detail_title"
+            android:parentActivityName=".view.ArtistsListActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
     </application>
 
