@@ -13,8 +13,14 @@ import com.vorgoron.artistslist.model.api.response.Artist;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
+/**
+ * Класс, отвечающий за отображение информации об исполнителе в списке
+ */
 public class ItemViewHolder extends RecyclerView.ViewHolder {
 
+    /**
+     * разделитель между количеством альбомов и песен
+     */
     public static final String DELIMITER = ", ";
 
     @Bind(R.id.cover)
@@ -26,24 +32,36 @@ public class ItemViewHolder extends RecyclerView.ViewHolder {
     @Bind(R.id.summary)
     TextView summary;
 
+    /**
+     * Инициализация ViewHolder
+     *
+     * @param itemView view позиции
+     */
     public ItemViewHolder(View itemView) {
         super(itemView);
         ButterKnife.bind(this, itemView);
     }
 
-    public void bindView(Context context, Artist item,
+    /**
+     * Связывание данных с представлением
+     *
+     * @param context           context
+     * @param artist            исполнитель
+     * @param itemClickListener listener нажатий на позицию
+     */
+    public void bindView(Context context, Artist artist,
                          ArtistAdapter.OnItemClickListener itemClickListener) {
         Glide.with(context)
-                .load(item.getCover().getSmall())
+                .load(artist.getCover().getSmall())
                 .into(cover);
 
-        title.setText(item.getName());
-        genre.setText(item.getGenres());
+        title.setText(artist.getName());
+        genre.setText(artist.getGenres());
         String albumsString = context.getResources().getQuantityString(R.plurals.albums,
-                item.getAlbums(), item.getAlbums());
+                artist.getAlbums(), artist.getAlbums());
         String tracksString = context.getResources().getQuantityString(R.plurals.tracks,
-                item.getTracks(), item.getTracks());
+                artist.getTracks(), artist.getTracks());
         summary.setText(albumsString + DELIMITER + tracksString);
-        itemView.setOnClickListener(v -> itemClickListener.onItemClick(item));
+        itemView.setOnClickListener(v -> itemClickListener.onItemClick(artist));
     }
 }

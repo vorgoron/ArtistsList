@@ -9,6 +9,9 @@ import com.google.gson.annotations.SerializedName;
 import lombok.Getter;
 import lombok.Setter;
 
+/**
+ * Модель Обложка
+ */
 @Getter
 @Table(name = Cover.TABLE_NAME)
 public class Cover extends Model {

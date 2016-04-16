@@ -10,6 +10,11 @@ import com.vorgoron.artistslist.view.BaseActivity;
 
 import javax.inject.Inject;
 
+import lombok.Getter;
+
+/**
+ * Презентер, управляющий отображением детальной информации об исполнителе.
+ */
 public class ArtistsDetailPresenter extends BasePresenter<ArtistsDetailActivity> {
 
     public static final int LOAD_ARTISTS = 1;
@@ -18,12 +23,15 @@ public class ArtistsDetailPresenter extends BasePresenter<ArtistsDetailActivity>
     Cache cache;
 
     private int artistId;
+    @Getter
+    private String link;
 
     @Override
     protected void onCreate(Bundle savedState) {
         super.onCreate(savedState);
         ArtistsApplication.getApplicationComponent().inject(this);
 
+        // инициализация загрузки детальной информации об исполнителе
         restartableFirst(LOAD_ARTISTS,
                 () -> cache
                         .getArtist(artistId)
@@ -38,10 +46,16 @@ public class ArtistsDetailPresenter extends BasePresenter<ArtistsDetailActivity>
                             artist.getTracks(), artist.getTracks());
                     activity.setSumary(albumsString + " • " + tracksString);
                     activity.setDescription(artist.getDescription());
+                    link = artist.getLink();
                 },
                 BaseActivity::onError);
     }
 
+    /**
+     * Загрузка детальной информации об исполнителе
+     *
+     * @param artistId id исполнителя
+     */
     public void loadArtist(int artistId) {
         this.artistId = artistId;
         start(LOAD_ARTISTS);

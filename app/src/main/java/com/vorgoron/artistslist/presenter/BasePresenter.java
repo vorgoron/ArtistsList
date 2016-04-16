@@ -9,7 +9,7 @@ import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
 /**
- * Базовый презентер
+ * Базовый презентер для реализации шаблона MVP с библиотекой Nucleus
  *
  * @param <V> тип представления
  */

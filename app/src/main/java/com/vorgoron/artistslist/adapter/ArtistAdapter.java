@@ -11,9 +11,20 @@ import com.vorgoron.artistslist.model.api.response.Artist;
 
 import java.util.List;
 
+/**
+ * Адаптер для отображения списка исполнителей в {@link RecyclerView} .
+ */
 public class ArtistAdapter extends RecyclerView.Adapter<ItemViewHolder> {
 
+    /**
+     * Интерфейс для обработки нажатий на позиции списка
+     */
     public interface OnItemClickListener {
+        /**
+         * Обработка при нажатии на позицию
+         *
+         * @param artist Выбранный исполнитель
+         */
         void onItemClick(Artist artist);
     }
 
@@ -21,6 +32,12 @@ public class ArtistAdapter extends RecyclerView.Adapter<ItemViewHolder> {
     private List<Artist> artistList;
     private OnItemClickListener itemClickListener;
 
+    /**
+     * Инициализация адаптера
+     *
+     * @param context    context
+     * @param artistList список исполнителей
+     */
     public ArtistAdapter(Context context, List<Artist> artistList) {
         this.context = context;
         this.artistList = artistList;
@@ -43,6 +60,11 @@ public class ArtistAdapter extends RecyclerView.Adapter<ItemViewHolder> {
         return artistList == null ? 0 : artistList.size();
     }
 
+    /**
+     * Установка listener'а нажатий на список исполнителей
+     *
+     * @param itemClickListener listener нажатия на позицию
+     */
     public void setOnItemClickListener(OnItemClickListener itemClickListener) {
         this.itemClickListener = itemClickListener;
     }

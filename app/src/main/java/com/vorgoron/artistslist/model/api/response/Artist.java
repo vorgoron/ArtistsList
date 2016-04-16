@@ -12,6 +12,9 @@ import java.util.List;
 import lombok.Getter;
 import lombok.Setter;
 
+/**
+ * Модель Исполнитель
+ */
 @Getter
 @Table(name = Artist.TABLE_NAME)
 public class Artist extends Model {

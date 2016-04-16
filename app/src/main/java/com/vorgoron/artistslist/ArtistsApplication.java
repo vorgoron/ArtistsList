@@ -19,7 +19,9 @@ public class ArtistsApplication extends Application {
     public void onCreate() {
         super.onCreate();
 
+        // инициализия компонента dagger2
         initComponent();
+        // инициализия Active Android sebbia
         initActiveAndroid();
     }
 

@@ -15,6 +15,9 @@ import dagger.Component;
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 
+/**
+ * Компонент для Dagger
+ */
 @Singleton
 @Component(modules = {ApplicationModule.class, NetModule.class})
 public interface ApplicationComponent {

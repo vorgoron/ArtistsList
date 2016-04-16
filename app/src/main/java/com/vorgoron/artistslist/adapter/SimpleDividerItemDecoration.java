@@ -9,6 +9,9 @@ import android.view.View;
 
 import com.vorgoron.artistslist.R;
 
+/**
+ * Класс, отвечающий за отрисовку разделителя между позициями в списке исполнителей
+ */
 public class SimpleDividerItemDecoration extends RecyclerView.ItemDecoration {
     private Drawable mDivider;
 

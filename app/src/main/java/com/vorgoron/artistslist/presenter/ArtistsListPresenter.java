@@ -9,9 +9,12 @@ import com.vorgoron.artistslist.view.ArtistsListActivity;
 
 import javax.inject.Inject;
 
+/**
+ * Презентер, управляющий списком исполнителей
+ */
 public class ArtistsListPresenter extends BasePresenter<ArtistsListActivity> {
 
-    public static final int LOAD_ARTISTS = 1;
+    private static final int LOAD_ARTISTS = 1;
     private static final int GET_ARTISTS_FROM_CACHE = 2;
 
     @Inject
@@ -24,6 +27,7 @@ public class ArtistsListPresenter extends BasePresenter<ArtistsListActivity> {
         super.onCreate(savedState);
         ArtistsApplication.getApplicationComponent().inject(this);
 
+        // инициализация задачи загрузки исполнителей с сети
         restartableFirst(LOAD_ARTISTS,
                 () -> artistApi.getArtists()
                         .doOnNext(cache::saveArtists)
@@ -38,7 +42,7 @@ public class ArtistsListPresenter extends BasePresenter<ArtistsListActivity> {
                     artistsListActivity.onError(throwable);
                 });
 
-
+        // инициализация задачи загрузки исполнителей с кэша
         restartableFirst(GET_ARTISTS_FROM_CACHE,
                 () -> cache.getArtists()
                         .compose(applySchedulers()),
@@ -56,6 +60,11 @@ public class ArtistsListPresenter extends BasePresenter<ArtistsListActivity> {
                 });
     }
 
+    /**
+     * Загрузить список исполнителей
+     *
+     * @param artistsListActivity представление
+     */
     public void loadArtists(ArtistsListActivity artistsListActivity) {
         start(ArtistsListPresenter.GET_ARTISTS_FROM_CACHE);
         artistsListActivity.showProgress();
