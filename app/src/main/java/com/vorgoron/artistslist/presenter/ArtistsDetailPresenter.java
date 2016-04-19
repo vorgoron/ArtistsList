@@ -49,6 +49,7 @@ public class ArtistsDetailPresenter extends BasePresenter<ArtistsDetailActivity>
                     activity.setDescription(artist.getDescription());
                     link = artist.getLink();
                     activity.setFabVisibility(link != null ? View.VISIBLE : View.GONE);
+                    activity.showProgress(false);
                 },
                 BaseActivity::onError);
     }

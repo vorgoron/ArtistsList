@@ -11,6 +11,8 @@ import com.vorgoron.artistslist.model.api.response.Artist;
 
 import java.util.List;
 
+import lombok.Getter;
+
 /**
  * Адаптер для отображения списка исполнителей в {@link RecyclerView} .
  */
@@ -29,6 +31,7 @@ public class ArtistAdapter extends RecyclerView.Adapter<ItemViewHolder> {
     }
 
     private Context context;
+    @Getter
     private List<Artist> artistList;
     private OnItemClickListener itemClickListener;
 

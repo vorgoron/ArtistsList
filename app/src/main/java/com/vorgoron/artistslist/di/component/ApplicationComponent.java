@@ -22,11 +22,10 @@ import retrofit2.Retrofit;
 @Component(modules = {ApplicationModule.class, NetModule.class})
 public interface ApplicationComponent {
 
-    Application providesApplication();
-    Gson provideGson();
-    OkHttpClient provideOkHttpClient();
-    Retrofit providesRetrofit();
-    ArtistApi provideArtistApi();
+//    Application providesApplication();
+//    Gson provideGson();
+//    OkHttpClient provideOkHttpClient();
+//    Retrofit providesRetrofit();
 
     void inject(ArtistsListPresenter artistsListPresenter);
 

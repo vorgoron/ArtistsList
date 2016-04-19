@@ -34,7 +34,7 @@ public class ArtistsListPresenter extends BasePresenter<ArtistsListActivity> {
                         .flatMap(artists1 -> cache.getArtists())
                         .compose(applySchedulers()),
                 (artistsListActivity, artists) -> {
-                    artistsListActivity.hideProgress();
+                    artistsListActivity.showProgress(false);
                     artistsListActivity.setArtists(artists);
                 },
                 (artistsListActivity, throwable) -> {
@@ -48,7 +48,7 @@ public class ArtistsListPresenter extends BasePresenter<ArtistsListActivity> {
                         .compose(applySchedulers()),
                 (artistsListActivity, artists) -> {
                     if (artists != null && !artists.isEmpty()) {
-                        artistsListActivity.hideProgress();
+                        artistsListActivity.showProgress(false);
                         artistsListActivity.setArtists(artists);
                     } else {
                         start(LOAD_ARTISTS);
@@ -67,7 +67,7 @@ public class ArtistsListPresenter extends BasePresenter<ArtistsListActivity> {
      */
     public void loadArtists(ArtistsListActivity artistsListActivity) {
         start(ArtistsListPresenter.GET_ARTISTS_FROM_CACHE);
-        artistsListActivity.showProgress();
+        artistsListActivity.showProgress(true);
         artistsListActivity.showReattemptGroup(false);
     }
 }

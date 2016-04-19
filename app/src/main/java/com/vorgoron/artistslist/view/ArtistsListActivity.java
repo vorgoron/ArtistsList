@@ -3,6 +3,7 @@ package com.vorgoron.artistslist.view;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 
 import com.vorgoron.artistslist.R;
@@ -23,6 +24,8 @@ import nucleus.factory.RequiresPresenter;
 @RequiresPresenter(ArtistsListPresenter.class)
 public class ArtistsListActivity extends BaseActivity<ArtistsListPresenter> {
 
+    @Bind(R.id.toolbar)
+    Toolbar toolbar;
     /**
      * Блок с кнопкой повторной загрузки исполнителей (отображается
      * при отсутствии подлкючения к сети)
@@ -34,12 +37,15 @@ public class ArtistsListActivity extends BaseActivity<ArtistsListPresenter> {
      */
     @Bind(R.id.list)
     RecyclerView list;
+    @Bind(R.id.progress_bar)
+    View progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_artists_list);
 
+        setSupportActionBar(toolbar);
         list.setLayoutManager(new LinearLayoutManager(this));
         list.addItemDecoration(new SimpleDividerItemDecoration(this));
         list.setHasFixedSize(true);
@@ -83,5 +89,14 @@ public class ArtistsListActivity extends BaseActivity<ArtistsListPresenter> {
      */
     public void showReattemptGroup(boolean show) {
         reattemptGroup.setVisibility(show ? View.VISIBLE : View.GONE);
+    }
+
+    /**
+     * Реализация метода отображения индикатора загрузки
+     * @param show
+     */
+    @Override
+    public void showProgress(boolean show) {
+        progressBar.setVisibility(show ? View.VISIBLE : View.GONE);
     }
 }

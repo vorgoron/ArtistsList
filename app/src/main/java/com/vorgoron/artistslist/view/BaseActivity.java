@@ -16,19 +16,7 @@ import nucleus.view.NucleusAppCompatActivity;
  *
  * @param <P> тип презентера
  */
-public class BaseActivity<P extends BasePresenter> extends NucleusAppCompatActivity<P> {
-
-    private ProgressDialog progressDialog;
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-        // инициализируем диалог для отображения процесса загрузки
-        progressDialog = new ProgressDialog(this);
-        progressDialog.setMessage(getString(R.string.progress_dialog_message));
-        progressDialog.setCancelable(false);
-    }
+public abstract class BaseActivity<P extends BasePresenter> extends NucleusAppCompatActivity<P> {
 
     @Override
     public void setContentView(int layoutResID) {
@@ -61,18 +49,9 @@ public class BaseActivity<P extends BasePresenter> extends NucleusAppCompatActiv
     }
 
     /**
-     * Показать диалог загрузки
+     * Показать индикатор загрузки
      */
-    public void showProgress() {
-        progressDialog.show();
-    }
-
-    /**
-     * Спрятать диалог загрузки
-     */
-    public void hideProgress() {
-        progressDialog.dismiss();
-    }
+    public abstract void showProgress(boolean show);
 
     /**
      * Обработчик исключений
@@ -81,7 +60,7 @@ public class BaseActivity<P extends BasePresenter> extends NucleusAppCompatActiv
      */
     public void onError(Throwable throwable) {
         throwable.printStackTrace();
-        hideProgress();
+        showProgress(false);
         showToast(throwable.getLocalizedMessage());
     }
 }

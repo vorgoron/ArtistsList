@@ -22,7 +22,9 @@
             android:value="com.vorgoron.artistslist.model.api.response.Artist,
                             com.vorgoron.artistslist.model.api.response.Cover" />
 
-        <activity android:name=".view.ArtistsListActivity">
+        <activity
+            android:name=".view.ArtistsListActivity"
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -35,6 +37,7 @@
             android:label="@string/artists_detail_title"
             android:parentActivityName=".view.ArtistsListActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
+
     </application>
 
 </manifest>

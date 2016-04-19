@@ -20,13 +20,13 @@ public class ArtistsApplication extends Application {
         super.onCreate();
 
         // инициализия компонента dagger2
-        initComponent();
+        applicationComponent = initComponent();
         // инициализия Active Android sebbia
         initActiveAndroid();
     }
 
-    private void initComponent() {
-        applicationComponent = DaggerApplicationComponent.builder()
+    public ApplicationComponent initComponent() {
+        return DaggerApplicationComponent.builder()
                 .applicationModule(new ApplicationModule(this))
                 .netModule(new NetModule(Constants.ENDPOINT_ADDRESS))
                 .build();

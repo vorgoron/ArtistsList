@@ -8,6 +8,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -41,6 +42,8 @@ public class ArtistsDetailActivity extends BaseActivity<ArtistsDetailPresenter> 
     TextView summary;
     @Bind(R.id.description)
     TextView description;
+    @Bind(R.id.progress_bar)
+    View progressBar;
 
     /**
      * Запуск активити из другого активити
@@ -67,6 +70,7 @@ public class ArtistsDetailActivity extends BaseActivity<ArtistsDetailPresenter> 
         // получение id исполнителя и запуск загрузки информации об исполнителе
         int artistId = getIntent().getIntExtra(EXTRA_ARTIST_ID, 0);
         getPresenter().loadArtist(artistId);
+        showProgress(true);
 
         fab.setOnClickListener(view -> {
             String link = getPresenter().getLink();
@@ -129,5 +133,14 @@ public class ArtistsDetailActivity extends BaseActivity<ArtistsDetailPresenter> 
      */
     public void setFabVisibility(int visibility) {
         fab.setVisibility(visibility);
+    }
+
+    /**
+     * Реализация метода отображения индикатора загрузки
+     * @param show
+     */
+    @Override
+    public void showProgress(boolean show) {
+        progressBar.setVisibility(show ? View.VISIBLE : View.GONE);
     }
 }
