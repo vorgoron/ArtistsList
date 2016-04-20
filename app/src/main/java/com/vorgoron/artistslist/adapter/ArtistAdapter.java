@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import com.vorgoron.artistslist.R;
 import com.vorgoron.artistslist.model.api.response.Artist;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import lombok.Getter;
@@ -39,11 +40,16 @@ public class ArtistAdapter extends RecyclerView.Adapter<ItemViewHolder> {
      * Инициализация адаптера
      *
      * @param context    context
-     * @param artistList список исполнителей
      */
-    public ArtistAdapter(Context context, List<Artist> artistList) {
+    public ArtistAdapter(Context context) {
         this.context = context;
-        this.artistList = artistList;
+        artistList = new ArrayList<>();
+    }
+
+    public void addAll(List<Artist> list) {
+        artistList.clear();
+        artistList.addAll(list);
+        notifyDataSetChanged();
     }
 
     @Override

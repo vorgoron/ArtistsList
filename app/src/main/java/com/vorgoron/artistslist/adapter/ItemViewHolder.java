@@ -51,7 +51,7 @@ public class ItemViewHolder extends RecyclerView.ViewHolder {
                 .into(cover);
 
         title.setText(artist.getName());
-//        genre.setText(artist.getGenres());
+        genre.setText(artist.getGenres());
         String albumsString = context.getResources().getQuantityString(R.plurals.albums,
                 artist.getAlbums(), artist.getAlbums());
         String tracksString = context.getResources().getQuantityString(R.plurals.tracks,

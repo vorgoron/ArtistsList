@@ -46,7 +46,7 @@ public class ArtistsDetailActivity extends BaseActivity<ArtistsDetailPresenter> 
     View progressBar;
 
     /**
-     * Запуск активити из другого активити
+     * Запуск активити с детальной информацией из другого активити
      *
      * @param activity активити - родитель
      * @param artistId id исполнителя, детальную информацию которого надо отобразить
@@ -137,6 +137,7 @@ public class ArtistsDetailActivity extends BaseActivity<ArtistsDetailPresenter> 
 
     /**
      * Реализация метода отображения индикатора загрузки
+     *
      * @param show
      */
     @Override

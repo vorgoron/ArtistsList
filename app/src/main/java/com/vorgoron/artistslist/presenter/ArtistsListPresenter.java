@@ -3,8 +3,7 @@ package com.vorgoron.artistslist.presenter;
 import android.os.Bundle;
 
 import com.vorgoron.artistslist.ArtistsApplication;
-import com.vorgoron.artistslist.model.Cache;
-import com.vorgoron.artistslist.model.api.ArtistApi;
+import com.vorgoron.artistslist.model.DataManager;
 import com.vorgoron.artistslist.view.ArtistsListActivity;
 
 import javax.inject.Inject;
@@ -15,43 +14,25 @@ import javax.inject.Inject;
 public class ArtistsListPresenter extends BasePresenter<ArtistsListActivity> {
 
     private static final int LOAD_ARTISTS = 1;
-    private static final int GET_ARTISTS_FROM_CACHE = 2;
 
     @Inject
-    ArtistApi artistApi;
-    @Inject
-    Cache cache;
+    DataManager dataManager;
 
     @Override
     protected void onCreate(Bundle savedState) {
         super.onCreate(savedState);
         ArtistsApplication.getApplicationComponent().inject(this);
 
-        // инициализация задачи загрузки исполнителей с сети
-        restartableFirst(LOAD_ARTISTS,
-                () -> artistApi.getArtists()
-                        .doOnNext(cache::saveArtists)
-                        .flatMap(artists1 -> cache.getArtists())
-                        .compose(applySchedulers()),
-                (artistsListActivity, artists) -> {
-                    artistsListActivity.showProgress(false);
-                    artistsListActivity.setArtists(artists);
-                },
-                (artistsListActivity, throwable) -> {
-                    artistsListActivity.showReattemptGroup(true);
-                    artistsListActivity.onError(throwable);
-                });
-
-        // инициализация задачи загрузки исполнителей с кэша
-        restartableFirst(GET_ARTISTS_FROM_CACHE,
-                () -> cache.getArtists()
+        // инициализация задачи загрузки исполнителей
+        restartableLatestCache(LOAD_ARTISTS,
+                () -> dataManager.getArtists(true)
                         .compose(applySchedulers()),
                 (artistsListActivity, artists) -> {
                     if (artists != null && !artists.isEmpty()) {
                         artistsListActivity.showProgress(false);
                         artistsListActivity.setArtists(artists);
                     } else {
-                        start(LOAD_ARTISTS);
+                        artistsListActivity.showReattemptGroup(true);
                     }
                 },
                 (artistsListActivity, throwable) -> {
@@ -66,7 +47,7 @@ public class ArtistsListPresenter extends BasePresenter<ArtistsListActivity> {
      * @param artistsListActivity представление
      */
     public void loadArtists(ArtistsListActivity artistsListActivity) {
-        start(ArtistsListPresenter.GET_ARTISTS_FROM_CACHE);
+        start(ArtistsListPresenter.LOAD_ARTISTS);
         artistsListActivity.showProgress(true);
         artistsListActivity.showReattemptGroup(false);
     }

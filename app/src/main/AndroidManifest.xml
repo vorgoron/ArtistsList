@@ -3,6 +3,7 @@
     package="com.vorgoron.artistslist">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
         android:name=".ArtistsApplication"
@@ -24,7 +25,8 @@
 
         <activity
             android:name=".view.ArtistsListActivity"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:theme="@style/AppTheme"
+            android:launchMode="singleTop">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

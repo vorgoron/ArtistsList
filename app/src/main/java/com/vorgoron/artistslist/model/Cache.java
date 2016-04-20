@@ -28,7 +28,7 @@ public class Cache {
      *
      * @param artists список исполнителей
      */
-    public void saveArtists(List<Artist> artists) {
+    public Observable<List<Artist>> saveArtists(List<Artist> artists) {
         ActiveAndroid.beginTransaction();
         try {
             clearTables();
@@ -41,12 +41,17 @@ public class Cache {
         } finally {
             ActiveAndroid.endTransaction();
         }
+        return Observable
+                .create((Observable.OnSubscribe<List<Artist>>) subscriber -> {
+                    subscriber.onNext(artists);
+                    subscriber.onCompleted();
+                });
     }
 
     /**
      * Очистить все таблицы
      */
-    public void clearTables() {
+    private void clearTables() {
         new Delete().from(Artist.class).execute();
         new Delete().from(Cover.class).execute();
     }

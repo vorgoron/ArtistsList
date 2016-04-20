@@ -40,6 +40,8 @@ public class ArtistsListActivity extends BaseActivity<ArtistsListPresenter> {
     @Bind(R.id.progress_bar)
     View progressBar;
 
+    private ArtistAdapter artistAdapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,7 +52,13 @@ public class ArtistsListActivity extends BaseActivity<ArtistsListPresenter> {
         list.addItemDecoration(new SimpleDividerItemDecoration(this));
         list.setHasFixedSize(true);
 
-        getPresenter().loadArtists(this);
+        artistAdapter = new ArtistAdapter(this);
+        artistAdapter.setOnItemClickListener(this::onClickArtist);
+        list.setAdapter(artistAdapter);
+
+        if (savedInstanceState == null) {
+            getPresenter().loadArtists(this);
+        }
     }
 
     /**
@@ -67,9 +75,7 @@ public class ArtistsListActivity extends BaseActivity<ArtistsListPresenter> {
      * @param artists список исполнителей
      */
     public void setArtists(List<Artist> artists) {
-        ArtistAdapter artistAdapter = new ArtistAdapter(this, artists);
-        artistAdapter.setOnItemClickListener(this::onClickArtist);
-        list.setAdapter(artistAdapter);
+        artistAdapter.addAll(artists);
     }
 
     /**
@@ -89,10 +95,12 @@ public class ArtistsListActivity extends BaseActivity<ArtistsListPresenter> {
      */
     public void showReattemptGroup(boolean show) {
         reattemptGroup.setVisibility(show ? View.VISIBLE : View.GONE);
+        list.setVisibility(show ? View.GONE : View.VISIBLE);
     }
 
     /**
      * Реализация метода отображения индикатора загрузки
+     *
      * @param show
      */
     @Override
