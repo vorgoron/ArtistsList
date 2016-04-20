@@ -89,7 +89,7 @@ public class ArtistsListActivity extends BaseActivity<ArtistsListPresenter> {
      *
      * @param artist выбранный исполнитель
      */
-    private void onClickArtist(Artist artist) {
+    public void onClickArtist(Artist artist) {
         ArtistsDetailActivity.launch(this, artist.getArtistId());
     }
 

@@ -26,7 +26,7 @@ import nucleus.factory.RequiresPresenter;
 public class ArtistsDetailActivity extends BaseActivity<ArtistsDetailPresenter> {
 
     // ключ для получения id исполнителя
-    private static final String EXTRA_ARTIST_ID = "extra_artist_id";
+    public static final String EXTRA_ARTIST_ID = "extra_artist_id";
 
     @Bind(R.id.toolbar_layout)
     CollapsingToolbarLayout toolbarLayout;
