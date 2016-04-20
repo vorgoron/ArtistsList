@@ -5,7 +5,7 @@ import android.view.View;
 
 import com.vorgoron.artistslist.ArtistsApplication;
 import com.vorgoron.artistslist.R;
-import com.vorgoron.artistslist.model.Cache;
+import com.vorgoron.artistslist.model.DataManager;
 import com.vorgoron.artistslist.view.ArtistsDetailActivity;
 import com.vorgoron.artistslist.view.BaseActivity;
 
@@ -21,7 +21,7 @@ public class ArtistsDetailPresenter extends BasePresenter<ArtistsDetailActivity>
     public static final int LOAD_ARTISTS = 1;
 
     @Inject
-    Cache cache;
+    DataManager dataManager;
 
     private int artistId;
     @Getter
@@ -32,9 +32,9 @@ public class ArtistsDetailPresenter extends BasePresenter<ArtistsDetailActivity>
         super.onCreate(savedState);
         ArtistsApplication.getApplicationComponent().inject(this);
 
-        // инициализация загрузки детальной информации об исполнителе
-        restartableFirst(LOAD_ARTISTS,
-                () -> cache
+        // инициализация загрузки детальной информации об исполнителе с кешированием последнего запроса
+        restartableLatestCache(LOAD_ARTISTS,
+                () -> dataManager
                         .getArtist(artistId)
                         .compose(applySchedulers()),
                 (activity, artist) -> {

@@ -33,6 +33,11 @@ public class ArtistsListActivity extends BaseActivity<ArtistsListPresenter> {
     @Bind(R.id.reattempt_group)
     View reattemptGroup;
     /**
+     * Отображается если загружен пустой список
+     */
+    @Bind(R.id.empty_list)
+    View emptyList;
+    /**
      * View для отображения списка исполнителей
      */
     @Bind(R.id.list)
@@ -89,16 +94,6 @@ public class ArtistsListActivity extends BaseActivity<ArtistsListPresenter> {
     }
 
     /**
-     * Показать блок с кнопкой повторной загрузки исполнителей
-     *
-     * @param show показать
-     */
-    public void showReattemptGroup(boolean show) {
-        reattemptGroup.setVisibility(show ? View.VISIBLE : View.GONE);
-        list.setVisibility(show ? View.GONE : View.VISIBLE);
-    }
-
-    /**
      * Реализация метода отображения индикатора загрузки
      *
      * @param show
@@ -106,5 +101,32 @@ public class ArtistsListActivity extends BaseActivity<ArtistsListPresenter> {
     @Override
     public void showProgress(boolean show) {
         progressBar.setVisibility(show ? View.VISIBLE : View.GONE);
+    }
+
+    /**
+     * Показать блок с кнопкой повторной загрузки исполнителей
+     */
+    public void showList() {
+        list.setVisibility(View.VISIBLE);
+        emptyList.setVisibility(View.GONE);
+        reattemptGroup.setVisibility(View.GONE);
+    }
+
+    /**
+     * Показать блок с кнопкой повторной загрузки исполнителей
+     */
+    public void showReattemptGroup() {
+        reattemptGroup.setVisibility(View.VISIBLE);
+        emptyList.setVisibility(View.GONE);
+        list.setVisibility(View.GONE);
+    }
+
+    /**
+     * Показать признак того, что список пустой
+     */
+    public void showEmptyList() {
+        emptyList.setVisibility(View.VISIBLE);
+        reattemptGroup.setVisibility(View.GONE);
+        list.setVisibility(View.GONE);
     }
 }

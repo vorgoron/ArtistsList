@@ -5,6 +5,7 @@
     <string name="progress_dialog_message">Загрузка…</string>
     <string name="error_message.connection_error">Ошибка подключения</string>
     <string name="retry_to_connect">Повторить попытку</string>
+    <string name="no_internet_connection_error">Отсутствует подключение к сети</string>
 
     <plurals name="albums">
         <item quantity="one">%s альбом</item>
@@ -22,6 +23,7 @@
 
     <!--Список исполнителей-->
     <string name="artists_list_summary" formatted="false">%s, %s</string>
+    <string name="empty_list">Пустой список</string>
 
     <!--Детальная информация об исполнителе-->
     <string name="artists_detail_title">Детальная информация</string>

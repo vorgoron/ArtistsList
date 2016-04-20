@@ -7,6 +7,7 @@ import com.vorgoron.artistslist.ArtistsApplication;
 import com.vorgoron.artistslist.model.Cache;
 import com.vorgoron.artistslist.model.ConnectionManager;
 import com.vorgoron.artistslist.model.DataManager;
+import com.vorgoron.artistslist.model.api.ArtistApi;
 
 import javax.inject.Singleton;
 
@@ -48,8 +49,11 @@ public class ApplicationModule {
 
     @Provides
     @Singleton
-    DataManager provideDataManager() {
-        return new DataManager();
+    DataManager provideDataManager(Context context,
+                                   ArtistApi artistApi,
+                                   Cache cache,
+                                   ConnectionManager connectionManager) {
+        return new DataManager(context, artistApi, cache, connectionManager);
     }
     
 }

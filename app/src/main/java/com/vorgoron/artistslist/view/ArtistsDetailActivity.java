@@ -67,10 +67,12 @@ public class ArtistsDetailActivity extends BaseActivity<ArtistsDetailPresenter> 
             supportActionBar.setDisplayHomeAsUpEnabled(true);
         }
 
-        // получение id исполнителя и запуск загрузки информации об исполнителе
-        int artistId = getIntent().getIntExtra(EXTRA_ARTIST_ID, 0);
-        getPresenter().loadArtist(artistId);
-        showProgress(true);
+        if (savedInstanceState == null) {
+            // получение id исполнителя и запуск загрузки информации об исполнителе
+            int artistId = getIntent().getIntExtra(EXTRA_ARTIST_ID, 0);
+            getPresenter().loadArtist(artistId);
+            showProgress(true);
+        }
 
         fab.setOnClickListener(view -> {
             String link = getPresenter().getLink();
