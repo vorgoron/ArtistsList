@@ -48,6 +48,7 @@ public class ItemViewHolder extends RecyclerView.ViewHolder {
                          ArtistAdapter.OnItemClickListener itemClickListener) {
         Glide.with(context)
                 .load(artist.getCover().getSmall())
+                .placeholder(R.drawable.artist_placeholder)
                 .into(cover);
 
         title.setText(artist.getName());
