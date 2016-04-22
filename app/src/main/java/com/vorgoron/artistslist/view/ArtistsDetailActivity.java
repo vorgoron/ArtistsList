@@ -69,15 +69,21 @@ public class ArtistsDetailActivity extends BaseActivity<ArtistsDetailPresenter> 
 
         if (savedInstanceState == null) {
             // получение id исполнителя и запуск загрузки информации об исполнителе
-            int artistId = getIntent().getIntExtra(EXTRA_ARTIST_ID, 0);
+            int artistId = getIntent().getIntExtra(EXTRA_ARTIST_ID, ArtistsDetailPresenter.TEST_MODE);
             getPresenter().loadArtist(artistId);
             showProgress(true);
         }
 
-        fab.setOnClickListener(view -> {
-            String link = getPresenter().getLink();
-            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(link)));
-        });
+        fab.setOnClickListener(view -> openLink(getPresenter().getLink()));
+    }
+
+    /**
+     * Открытие веб-страницы исполнителя
+     *
+     * @param link ссылка на веб-страницу
+     */
+    public void openLink(String link) {
+        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(link)));
     }
 
     /**
@@ -113,10 +119,13 @@ public class ArtistsDetailActivity extends BaseActivity<ArtistsDetailPresenter> 
     /**
      * Установка информации о количестве альбомов, песен
      *
-     * @param text текст
+     * @param albums количество альбомов
+     * @param tracks количество песен
      */
-    public void setSummary(String text) {
-        summary.setText(text);
+    public void setSummary(int albums, int tracks) {
+        String albumsString = getResources().getQuantityString(R.plurals.albums, albums, albums);
+        String tracksString = getResources().getQuantityString(R.plurals.tracks, tracks, tracks);
+        summary.setText(getString(R.string.artists_detail_summary, albumsString, tracksString));
     }
 
     /**
@@ -140,7 +149,7 @@ public class ArtistsDetailActivity extends BaseActivity<ArtistsDetailPresenter> 
     /**
      * Реализация метода отображения индикатора загрузки
      *
-     * @param show
+     * @param show показать
      */
     @Override
     public void showProgress(boolean show) {

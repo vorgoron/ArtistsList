@@ -49,7 +49,7 @@ public class ArtistsListPresenter extends BasePresenter<ArtistsListActivity> {
      * @param artistsListActivity представление
      */
     public void loadArtists(ArtistsListActivity artistsListActivity) {
-        start(ArtistsListPresenter.LOAD_ARTISTS);
+        start(LOAD_ARTISTS);
         artistsListActivity.showProgress(true);
         artistsListActivity.showList();
     }

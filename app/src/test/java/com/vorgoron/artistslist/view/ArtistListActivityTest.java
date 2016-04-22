@@ -1,6 +1,7 @@
 package com.vorgoron.artistslist.view;
 
 import android.content.Intent;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.vorgoron.artistslist.BaseTest;
@@ -54,14 +55,12 @@ public class ArtistListActivityTest extends BaseTest {
      */
     @Test
     public void testLoadArtists() throws Exception {
-        artistListActivity = Robolectric.setupActivity(ArtistsListActivity.class);
+        RecyclerView list = artistListActivity.list;
+        Assert.assertNotNull(list);
 
-        View list = artistListActivity.findViewById(R.id.list);
-        if (list != null) {
-            Assert.assertEquals(list.getVisibility(), View.VISIBLE);
-        }
+        Assert.assertEquals(list.getVisibility(), View.VISIBLE);
 
-        List<Artist> artistList = ((ArtistAdapter) artistListActivity.list.getAdapter()).getArtistList();
+        List<Artist> artistList = ((ArtistAdapter) list.getAdapter()).getArtistList();
         Assert.assertArrayEquals(testArtistList.toArray(), artistList.toArray());
     }
 
@@ -104,9 +103,9 @@ public class ArtistListActivityTest extends BaseTest {
     public void testOnClickArtist() {
         artistListActivity.onClickArtist(testArtistList.get(0));
 
-        Intent intent = new Intent(artistListActivity, ArtistsDetailActivity.class);
-        intent.putExtra(ArtistsDetailActivity.EXTRA_ARTIST_ID, testArtistList.get(0).getArtistId());
+        Intent expectedIntent = new Intent(artistListActivity, ArtistsDetailActivity.class);
+        expectedIntent.putExtra(ArtistsDetailActivity.EXTRA_ARTIST_ID, testArtistList.get(0).getArtistId());
         Intent actualIntent = Shadows.shadowOf(artistListActivity).getNextStartedActivity();
-        Assert.assertEquals(intent, actualIntent);
+        Assert.assertEquals(expectedIntent, actualIntent);
     }
 }

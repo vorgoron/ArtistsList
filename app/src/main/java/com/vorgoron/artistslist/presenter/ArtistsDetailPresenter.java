@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.vorgoron.artistslist.ArtistsApplication;
-import com.vorgoron.artistslist.R;
 import com.vorgoron.artistslist.model.DataManager;
 import com.vorgoron.artistslist.view.ArtistsDetailActivity;
 import com.vorgoron.artistslist.view.BaseActivity;
@@ -17,6 +16,8 @@ import lombok.Getter;
  * Презентер, управляющий отображением детальной информации об исполнителе.
  */
 public class ArtistsDetailPresenter extends BasePresenter<ArtistsDetailActivity> {
+
+    public static final int TEST_MODE = -1;
 
     public static final int LOAD_ARTISTS = 1;
 
@@ -41,11 +42,7 @@ public class ArtistsDetailPresenter extends BasePresenter<ArtistsDetailActivity>
                     activity.setArtistName(artist.getName());
                     activity.setImage(artist.getCover().getBig());
                     activity.setGenre(artist.getGenres());
-                    String albumsString = activity.getResources().getQuantityString(R.plurals.albums,
-                            artist.getAlbums(), artist.getAlbums());
-                    String tracksString = activity.getResources().getQuantityString(R.plurals.tracks,
-                            artist.getTracks(), artist.getTracks());
-                    activity.setSummary(activity.getString(R.string.artists_detail_summary, albumsString, tracksString));
+                    activity.setSummary(artist.getAlbums(), artist.getTracks());
                     activity.setDescription(artist.getDescription());
                     link = artist.getLink();
                     activity.setFabVisibility(link != null ? View.VISIBLE : View.GONE);
@@ -61,6 +58,8 @@ public class ArtistsDetailPresenter extends BasePresenter<ArtistsDetailActivity>
      */
     public void loadArtist(int artistId) {
         this.artistId = artistId;
-        start(LOAD_ARTISTS);
+        if (artistId != TEST_MODE) {
+            start(LOAD_ARTISTS);
+        }
     }
 }
