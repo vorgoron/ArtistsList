@@ -1,6 +1,7 @@
 package com.vorgoron.artistslist.view;
 
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -42,6 +43,8 @@ public class ArtistsListActivity extends BaseActivity<ArtistsListPresenter> {
      */
     @Bind(R.id.list)
     RecyclerView list;
+    @Bind(R.id.refresh_layout)
+    SwipeRefreshLayout refreshLayout;
     @Bind(R.id.progress_bar)
     View progressBar;
 
@@ -56,6 +59,9 @@ public class ArtistsListActivity extends BaseActivity<ArtistsListPresenter> {
         list.setLayoutManager(new LinearLayoutManager(this));
         list.addItemDecoration(new SimpleDividerItemDecoration(this));
         list.setHasFixedSize(true);
+
+        refreshLayout.setOnRefreshListener(this::retryLoad);
+        refreshLayout.setColorSchemeResources(R.color.colorAccent, R.color.colorPrimary);
 
         artistAdapter = new ArtistAdapter(this);
         artistAdapter.setOnItemClickListener(this::onClickArtist);
@@ -81,6 +87,7 @@ public class ArtistsListActivity extends BaseActivity<ArtistsListPresenter> {
      */
     public void setArtists(List<Artist> artists) {
         artistAdapter.addAll(artists);
+        refreshLayout.setRefreshing(false);
     }
 
     /**
@@ -100,14 +107,16 @@ public class ArtistsListActivity extends BaseActivity<ArtistsListPresenter> {
      */
     @Override
     public void showProgress(boolean show) {
-        progressBar.setVisibility(show ? View.VISIBLE : View.GONE);
+        if (!refreshLayout.isRefreshing()) {
+            progressBar.setVisibility(show ? View.VISIBLE : View.GONE);
+        }
     }
 
     /**
      * Показать блок с кнопкой повторной загрузки исполнителей
      */
     public void showList() {
-        list.setVisibility(View.VISIBLE);
+        refreshLayout.setVisibility(View.VISIBLE);
         emptyList.setVisibility(View.GONE);
         reattemptGroup.setVisibility(View.GONE);
     }
@@ -118,7 +127,7 @@ public class ArtistsListActivity extends BaseActivity<ArtistsListPresenter> {
     public void showReattemptGroup() {
         reattemptGroup.setVisibility(View.VISIBLE);
         emptyList.setVisibility(View.GONE);
-        list.setVisibility(View.GONE);
+        refreshLayout.setVisibility(View.GONE);
     }
 
     /**
@@ -127,6 +136,6 @@ public class ArtistsListActivity extends BaseActivity<ArtistsListPresenter> {
     public void showEmptyList() {
         emptyList.setVisibility(View.VISIBLE);
         reattemptGroup.setVisibility(View.GONE);
-        list.setVisibility(View.GONE);
+        refreshLayout.setVisibility(View.GONE);
     }
 }
