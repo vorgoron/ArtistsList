@@ -3,6 +3,7 @@ package com.vorgoron.artistslist.di.module;
 import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.vorgoron.artistslist.BuildConfig;
 import com.vorgoron.artistslist.model.api.ArtistApi;
 
 import javax.inject.Singleton;
@@ -37,7 +38,8 @@ public class NetModule {
     @Singleton
     OkHttpClient provideOkHttpClient() {
         HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
-        interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+        interceptor.setLevel(BuildConfig.DEBUG ?
+                HttpLoggingInterceptor.Level.BODY : HttpLoggingInterceptor.Level.NONE);
         return new OkHttpClient.Builder()
                 .addInterceptor(interceptor)
                 .build();
