@@ -1,8 +1,13 @@
 package com.vorgoron.artistslist.di.module;
 
 import android.app.Application;
+import android.content.Context;
 
 import com.vorgoron.artistslist.ArtistsApplication;
+import com.vorgoron.artistslist.model.Cache;
+import com.vorgoron.artistslist.model.ConnectionManager;
+import com.vorgoron.artistslist.model.DataManager;
+import com.vorgoron.artistslist.model.api.ArtistApi;
 
 import javax.inject.Singleton;
 
@@ -20,8 +25,35 @@ public class ApplicationModule {
 
     @Provides
     @Singleton
+    Context provideContext() {
+        return artistsApplication;
+    }
+
+    @Provides
+    @Singleton
     Application provideApplication() {
         return artistsApplication;
+    }
+
+    @Provides
+    @Singleton
+    ConnectionManager provideConnectionManager(Context context) {
+        return new ConnectionManager(context);
+    }
+
+    @Provides
+    @Singleton
+    Cache provideCache() {
+        return new Cache();
+    }
+
+    @Provides
+    @Singleton
+    DataManager provideDataManager(Context context,
+                                   ArtistApi artistApi,
+                                   Cache cache,
+                                   ConnectionManager connectionManager) {
+        return new DataManager(context, artistApi, cache, connectionManager);
     }
     
 }

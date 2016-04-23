@@ -1,0 +1,43 @@
+[{
+  "id": 68227,
+  "name": "Led Zeppelin",
+  "genres": [
+    "rock"
+  ],
+  "tracks": 316,
+  "albums": 19,
+  "link": "http://www.ledzeppelin.com/",
+  "description": "британская рок-группа, образовавшаяся в сентябре 1968 года в Лондоне, Англия, и признанная одной из самых успешных, новаторских и влиятельных в современной истории. Создав собственное звучание, Led Zeppelin стали одной из ведущих групп хард-рока, сыграли основополагающую роль в становлении хэви метал, свободно интерпретируя фолк- и блюз-классику и обогащая стиль элементами других музыкальных жанров. Именно Led Zeppelin, отказавшись от выпуска синглов, заложили основу понятия «альбомный рок».",
+  "cover": {
+    "small": "http://avatars.yandex.net/get-music-content/d1133dd2.p.68227/300x300",
+    "big": "http://avatars.yandex.net/get-music-content/d1133dd2.p.68227/1000x1000"
+  }
+}, {
+  "id": 168372,
+  "name": "Кипелов",
+  "genres": [
+    "metal"
+  ],
+  "tracks": 97,
+  "albums": 11,
+  "link": "http://www.kipelov.ru/",
+  "description": "российская рок-группа под руководством Валерия Кипелова, играющая в стиле хэви-метал. Лауреат премии MTV Russia Music Awards 2004 года как лучший рок-проект.",
+  "cover": {
+    "small": "http://avatars.yandex.net/get-music-content/49b74070.p.168372/300x300",
+    "big": "http://avatars.yandex.net/get-music-content/49b74070.p.168372/1000x1000"
+  }
+}, {
+  "id": 41052,
+  "name": "Король и Шут",
+  "genres": [
+    "punk"
+  ],
+  "tracks": 59,
+  "albums": 6,
+  "link": "http://www.korol-i-shut.ru/",
+  "description": "российская хоррор-панк-группа из Санкт-Петербурга. Группа была образована в Ленинграде в 1988 году и прекратила своё существование в 2014 году в связи со смертью её лидера и основателя Михаила Горшенёва 19 июля 2013 года.",
+  "cover": {
+    "small": "http://avatars.yandex.net/get-music-content/24e096f6.p.41052/300x300",
+    "big": "http://avatars.yandex.net/get-music-content/24e096f6.p.41052/1000x1000"
+  }
+}]

@@ -1,5 +1,11 @@
 package com.vorgoron.artistslist;
 
+/**
+ * Класс, содержащий константы приложения
+ */
 public class Constants {
-    public static final String ENDPOINT_ADDRESS = "download.cdn.yandex.net";
+    /**
+     * Базовый url для загрузки списка исполнителей
+     */
+    public static final String ENDPOINT_ADDRESS = "http://download.cdn.yandex.net";
 }
