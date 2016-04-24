@@ -19,7 +19,6 @@ public class ArtistsListPresenter extends BasePresenter<ArtistsListActivity> {
     DataManager dataManager;
 
     private boolean forceLoad;
-    private boolean listLoaded = false;
 
     @Override
     protected void onCreate(Bundle savedState) {
@@ -32,7 +31,6 @@ public class ArtistsListPresenter extends BasePresenter<ArtistsListActivity> {
                 (artistsListActivity, artists) -> {
                     artistsListActivity.showProgress(false);
                     if (artists != null && !artists.isEmpty()) {
-                        listLoaded = true;
                         artistsListActivity.showList();
                         artistsListActivity.setArtists(artists);
                     } else {
@@ -40,9 +38,7 @@ public class ArtistsListPresenter extends BasePresenter<ArtistsListActivity> {
                     }
                 },
                 (artistsListActivity, throwable) -> {
-                    if (!listLoaded) {
-                        artistsListActivity.showReattemptGroup();
-                    }
+                    artistsListActivity.showReattemptGroup();
                     artistsListActivity.onError(throwable);
                 });
     }

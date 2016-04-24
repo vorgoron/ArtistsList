@@ -1,11 +1,8 @@
 package com.vorgoron.artistslist.view;
 
-import android.app.ProgressDialog;
-import android.os.Bundle;
 import android.support.annotation.StringRes;
 import android.widget.Toast;
 
-import com.vorgoron.artistslist.R;
 import com.vorgoron.artistslist.presenter.BasePresenter;
 
 import butterknife.ButterKnife;
@@ -54,7 +51,7 @@ public abstract class BaseActivity<P extends BasePresenter> extends NucleusAppCo
     public abstract void showProgress(boolean show);
 
     /**
-     * Обработчик исключений
+     * Обработчик ошибок
      *
      * @param throwable объект исключения
      */
