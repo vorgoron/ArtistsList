@@ -1,6 +1,6 @@
 <resources>
     <!--Общие строковые ресурсы-->
-    <string name="app_name">Artists List</string>
+    <string name="app_name">Исполнители</string>
 
     <string name="progress_dialog_message">Загрузка…</string>
     <string name="error_message.connection_error">Ошибка подключения</string>

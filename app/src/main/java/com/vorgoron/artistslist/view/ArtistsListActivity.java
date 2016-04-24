@@ -68,7 +68,7 @@ public class ArtistsListActivity extends BaseActivity<ArtistsListPresenter> {
         list.setAdapter(artistAdapter);
 
         if (savedInstanceState == null) {
-            getPresenter().loadArtists(this);
+            getPresenter().loadArtists(this, false);
         }
     }
 
@@ -77,7 +77,7 @@ public class ArtistsListActivity extends BaseActivity<ArtistsListPresenter> {
      */
     @OnClick(R.id.btn_retry_to_load)
     public void retryLoad() {
-        getPresenter().loadArtists(this);
+        getPresenter().loadArtists(this, true);
     }
 
     /**
@@ -103,12 +103,22 @@ public class ArtistsListActivity extends BaseActivity<ArtistsListPresenter> {
     /**
      * Реализация метода отображения индикатора загрузки
      *
-     * @param show
+     * @param show показать
      */
     @Override
     public void showProgress(boolean show) {
-        if (!refreshLayout.isRefreshing()) {
-            progressBar.setVisibility(show ? View.VISIBLE : View.GONE);
+        if (show) {
+            // если отображается индиактор обновления у refreshLayout,
+            // тогда не отображаем дополнительно progressBar
+            if (!refreshLayout.isRefreshing()) {
+                progressBar.setVisibility(View.VISIBLE);
+                emptyList.setVisibility(View.GONE);
+                reattemptGroup.setVisibility(View.GONE);
+                refreshLayout.setVisibility(View.GONE);
+            }
+        } else {
+            refreshLayout.setRefreshing(false);
+            progressBar.setVisibility(View.GONE);
         }
     }
 

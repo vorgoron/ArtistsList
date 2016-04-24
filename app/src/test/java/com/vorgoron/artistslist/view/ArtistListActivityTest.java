@@ -1,7 +1,6 @@
 package com.vorgoron.artistslist.view;
 
 import android.content.Intent;
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.vorgoron.artistslist.BaseTest;
@@ -42,7 +41,7 @@ public class ArtistListActivityTest extends BaseTest {
         getTestComponent().inject(this);
 
         testArtistList = TestUtils.getTestArtistList();
-        Mockito.when(dataManager.getArtists(true)).thenReturn(Observable.just(testArtistList));
+        Mockito.when(dataManager.getArtists(false)).thenReturn(Observable.just(testArtistList));
 
         artistListActivity = Robolectric.setupActivity(ArtistsListActivity.class);
     }
@@ -55,12 +54,11 @@ public class ArtistListActivityTest extends BaseTest {
      */
     @Test
     public void testLoadArtists() throws Exception {
-        RecyclerView list = artistListActivity.list;
-        Assert.assertNotNull(list);
+        Assert.assertNotNull(artistListActivity.refreshLayout);
 
-        Assert.assertEquals(list.getVisibility(), View.VISIBLE);
+        Assert.assertEquals(artistListActivity.refreshLayout.getVisibility(), View.VISIBLE);
 
-        List<Artist> artistList = ((ArtistAdapter) list.getAdapter()).getArtistList();
+        List<Artist> artistList = ((ArtistAdapter) artistListActivity.list.getAdapter()).getArtistList();
         Assert.assertArrayEquals(testArtistList.toArray(), artistList.toArray());
     }
 

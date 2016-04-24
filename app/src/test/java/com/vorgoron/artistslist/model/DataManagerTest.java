@@ -60,7 +60,7 @@ public class DataManagerTest extends BaseTest {
         Observable<List<Artist>> artists = dataManager.getArtists(true);
 
         Observable.zip(
-                dataManager.getArtists(true),
+                Observable.just(testArtistList),
                 artists,
                 (list, list2) -> Arrays.equals(list.toArray(), list2.toArray())
         ).subscribe(Assert::assertTrue);
@@ -77,10 +77,10 @@ public class DataManagerTest extends BaseTest {
         Mockito.when(connectionManager.isInternetConnected()).thenReturn(false);
         Mockito.when(cache.getArtists()).thenReturn(Observable.just(testArtistList));
 
-        Observable<List<Artist>> artists = dataManager.getArtists(true);
+        Observable<List<Artist>> artists = dataManager.getArtists(false);
 
         Observable.zip(
-                dataManager.getArtists(true),
+                Observable.just(testArtistList),
                 artists,
                 (list, list2) -> Arrays.equals(list.toArray(), list2.toArray())
         ).subscribe(Assert::assertTrue);
@@ -121,7 +121,7 @@ public class DataManagerTest extends BaseTest {
         Observable<Artist> artistObservable = dataManager.getArtist(artist.getArtistId());
 
         Observable.zip(
-                dataManager.getArtist(artist.getArtistId()),
+                Observable.just(artist),
                 artistObservable,
                 (artist1, artist2) -> artist1 == artist2
         ).subscribe(Assert::assertTrue);
